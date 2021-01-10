@@ -1,23 +1,24 @@
 <template>
   <div class="character-list-container">
-      <ul>
-        <router-link to="/character-info">
-          <li>Luke Skywalker</li>        
-        </router-link>  
-        <router-link to="/character-info">
-          <li>Anakin Skywalker</li>        
-        </router-link>  
-          <li>Thrawn</li>
-          <li>Jabba</li>
-          <li>Grogu</li>
-          <li>Mandalorian</li>
-      </ul>
+    <ul>
+        <router-link to="/character-info" v-for="item in characterArray" :key="item.url">
+          <li>{{item.name}}</li>        
+        </router-link>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
     name: 'CharacterList',
+    data() {
+        return{
+            characterArray: this.characterList,
+        }
+    },
+    props: {
+    characterList: Array,
+    },
 }
 </script>
 

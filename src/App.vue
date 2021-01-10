@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/character-info">Character Info</router-link>
-    </div>
-    <router-view/>
+    </div> -->
+    <img v-if="!characterArray" src="https://cdn.dribbble.com/users/361263/screenshots/3051905/imperial_emblem.gif" alt="">
+    <router-view v-if="characterArray" :characterList="characterArray"/>
   </div>
 </template>
 
@@ -16,13 +17,31 @@ const swapi = "https://swapi.dev/api/people/";
 export default {
   data() {
     return {
-      characterList: null,
+      characterArray: null,
     }
   },
   mounted() {
-    axios.get(swapi).then(response => this.characterList = response);
+    let people = [];
+    axios.get(swapi)
+        .then(response => {
+            people = response.data.results;
+            return response.data.count;
+        })
+        .then(count => {
+            const numberOfPagesLeft = Math.ceil((count - 1) / 10);
+            let promises = [];
+            for (let i = 2; i <= numberOfPagesLeft; i++) {
+                promises.push(axios(`https://swapi.dev/api/people?page=${i}`));
+            }
+            return Promise.all(promises);
+        })
+        .then(response => {
+            people = response.reduce((acc, data) => [...acc, ...data.data.results], people);
+            this.characterArray = people;
+        })
+        .catch(error => console.log(error.response));
+    },
   }
-}
 </script>
 
 <style>

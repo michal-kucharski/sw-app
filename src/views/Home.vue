@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Search for your favourites Star Wars characters</h1>
     <SearchCharacter/>
-    <CharacterList/>
+    <CharacterList :characterList="characterArray"/>
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   components: {
     SearchCharacter,
     CharacterList,
-  }
+  },
+  data() {
+    return {
+      characterArray: this.characterList,
+    }
+  },
+  props: {
+    characterList: Array,
+  },
 }
 </script>

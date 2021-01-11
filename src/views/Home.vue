@@ -17,8 +17,14 @@ export default {
   data() {
     return {
       charactersArray: this.charactersList,
+
     }
   },
+    computed: {
+        filteredCharactersArray(){
+          return this.$store.state.filteredCharactersArray;
+        }
+    },
   props: {
     charactersList: Array,
   },

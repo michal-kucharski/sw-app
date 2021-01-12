@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img v-if="!charactersArray" src="https://cdn.dribbble.com/users/361263/screenshots/3051905/imperial_emblem.gif" alt="loading" class="img-responsive">
-    <router-view v-if="charactersArray" :charactersList="charactersArray"/>
+    <router-view @itemIndex="itemIndex = $event" @filteredCharacters="filteredCharactersArray = $event" v-if="charactersArray" :charactersList="charactersArray" :filteredArray="filteredCharactersArray" :itemIndexNo="itemIndex"/>
   </div>
 </template>
 
@@ -14,6 +14,8 @@ export default {
   data() {
     return {
       charactersArray: null,
+      filteredCharactersArray: [],
+      itemIndex: null
     }
   },
   mounted() {

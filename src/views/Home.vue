@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Search for your favourites Star Wars characters</h1>
-    <SearchCharacter :charactersList="charactersArray"/>
+    <SearchCharacter @itemIndex="itemIndex = $event" @filteredCharacters="filteredCharactersArray = $event" :charactersList="charactersArray"/>
   </div>
 </template>
 
@@ -17,14 +17,10 @@ export default {
   data() {
     return {
       charactersArray: this.charactersList,
-
+      filteredCharactersArray: [],
+      itemIndex: null
     }
   },
-    computed: {
-        filteredCharactersArray(){
-          return this.$store.state.filteredCharactersArray;
-        }
-    },
   props: {
     charactersList: Array,
   },

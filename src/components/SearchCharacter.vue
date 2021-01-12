@@ -5,15 +5,12 @@
         <button @click="searchCharacter(searchName)">Search</button>
     </div>
     <div class="character-list-container">
-      <!-- <ul>
-          <router-link to="/character-info" v-for="(item, index) in filteredCharactersArray" :key="item.url" @click="getItemIndex" :id="index">
-            <li>{{item.name}}</li>        
+      <ul>
+          <router-link to="/character-info" v-for="(item, index) in filteredCharactersArray" :key="item.url">
+            <li :id="index" @click="getItemIndex" >{{item.name}}</li>        
           </router-link>
-      </ul> -->
+      </ul>
     </div>
-    <ul>
-      <li v-for="(item, index) in filteredCharactersArray" :key="item.url" @click="getItemIndex" :id="index">{{item.name}}</li>   
-    </ul>
   </div>
 </template>
 
@@ -25,32 +22,28 @@ export default {
       return{
           charactersArray: this.charactersList,
           searchName: '',
+          filteredCharactersArray: [],
+          itemIndex: null,
       }
     },
-    computed: {
-        filteredCharactersArray(){
-          return this.$store.state.filteredCharactersArray;
-        },
-        itemIndex(){
-          return this.$store.state.itemIndex;
-        },
-      },  
     props: {
     charactersList: Array,
     },
     methods: {
       searchCharacter:function(name) {
-        this.$store.state.filteredCharactersArray = [];
+        this.filteredCharactersArray = [];
         this.charactersArray.forEach((item) => {
           if(item.name.toLowerCase().includes(name.toLowerCase())){
-            console.log(this.$store.state.filteredCharactersArray);
-            this.$store.state.filteredCharactersArray.push(item);
+            this.filteredCharactersArray.push(item);            
           }
         })
+        this.$emit("filteredCharacters", this.filteredCharactersArray); 
+        this.$parent.$emit("filteredCharacters", this.filteredCharactersArray)      
       },
       getItemIndex: function(e) {
-        this.$store.state.itemIndex = e.target.id;
-        console.log(this.$store.state.itemIndex);         
+        this.itemIndex = parseInt(e.target.id);
+        this.$emit("itemIndex", this.itemIndex);
+        this.$parent.$emit("itemIndex", this.itemIndex)      
       }
     }
 }

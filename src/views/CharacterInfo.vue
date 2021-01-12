@@ -19,16 +19,14 @@ export default {
     name: 'CharacterInfo',
     data() {
       return {
+        filteredCharactersArray: this.filteredArray,
+        itemIndex: this.itemIndexNo,
         }
       },
-    computed: {
-        filteredCharactersArray(){
-          return this.$store.state.filteredCharactersArray;
-        },
-        itemIndex(){
-          return this.$store.state.itemIndex;
-        },
-    }
+      props: {
+        filteredArray: Array, 
+        itemIndexNo: Number,
+      }
   }
 </script>
 
@@ -38,8 +36,14 @@ export default {
   }
   .character-info-container {
     margin: 10% auto;
+    padding: 20px;
     background: rgb(37, 37, 37);
     color: whitesmoke;
     box-shadow: 10px 5px 5px rgb(37, 37, 37);
+  }
+  @media(min-width: 1024px) {
+    .character-info-container {
+      width: 60%;
+    }
   }
 </style>

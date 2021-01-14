@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>Search for your favourites Star Wars characters</h1>
     <SearchCharacter @itemIndex="itemIndex = $event" @filteredCharacters="filteredCharactersArray = $event" :charactersList="charactersArray"/>
   </div>
 </template>

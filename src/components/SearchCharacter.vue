@@ -33,7 +33,7 @@ export default {
       return{
           charactersArray: this.charactersList,
           searchName: '',
-          filteredCharactersArray: [],
+          filteredCharactersArray: this.filteredCharactersList,
           itemIndex: null,
           emptySearch: undefined,
           searchError: undefined,
@@ -41,6 +41,7 @@ export default {
     },
     props: {
     charactersList: Array,
+    filteredCharactersList: Array,
     },
     methods: {
       searchCharacter:function(name) {

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <SearchCharacter @itemIndex="itemIndex = $event" @filteredCharacters="filteredCharactersArray = $event" :charactersList="charactersArray"/>
+    <SearchCharacter @itemIndex="itemIndex = $event" @filteredCharacters="filteredCharactersArray = $event" :charactersList="charactersArray" :filteredCharactersList="filteredCharactersArray"/>
   </div>
 </template>
 
@@ -16,12 +16,13 @@ export default {
   data() {
     return {
       charactersArray: this.charactersList,
-      filteredCharactersArray: [],
+      filteredCharactersArray: this.filteredArray,
       itemIndex: null
     }
   },
   props: {
     charactersList: Array,
+    filteredArray: Array,
   },
 }
 </script>
